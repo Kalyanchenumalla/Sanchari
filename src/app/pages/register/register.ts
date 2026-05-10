@@ -93,7 +93,7 @@ export class Register {
     pass: this.password().length > 0,
     confirm: this.confirmPassword().length > 0,
     mobile: this.mobile().trim().length >= 10,
-    day: String(this.dobDay()) !== '',   // Forced to string in case HTML returns number
+    day: String(this.dobDay()) !== '',
     month: String(this.dobMonth()) !== '',
     year: String(this.dobYear()) !== '',
     gender: this.gender() !== ''

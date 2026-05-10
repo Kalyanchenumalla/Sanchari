@@ -1,0 +1,79 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.panda-svg {
+  overflow: visible;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.05)); // Soft shadow on the card
+  
+  .hand {
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-origin: bottom center;
+  }
+
+  .hand.cover {
+    transform: translateY(-62px);
+  }
+
+  .left-hand.peek {
+    transform: translateY(-45px) rotate(-20deg) translateX(-15px);
+  }
+  .right-hand.peek {
+    transform: translateY(-62px);
+  }
+}
+
+.pupils {
+  transition: transform 0.1s ease-out;
+}
+
+.panda-speech-bubble {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff7675; // Reddish for errors
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(255, 118, 117, 0.4);
+  z-index: 100;
+  animation: popIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #ff7675;
+  }
+}
+
+@keyframes popIn { 
+  from { opacity: 0; transform: translate(-50%, 10px) scale(0.8); } 
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); } 
+}
+
+input[type="password"], 
+input[type="text"] {
+  &.pe-5 {
+    padding-right: 3rem !important;
+  }
+}
+
+.form-control, .form-select {
+    box-shadow: none;
+}
+.form-control.is-invalid {
+    box-shadow: none;
+}
+.form-control:focus {
+    border-color: rgb(134, 182.5, 254);
+}

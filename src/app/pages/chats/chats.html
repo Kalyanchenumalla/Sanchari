@@ -1,0 +1,93 @@
+<div class="chat-layout bg-light vw-100 vh-100 overflow-hidden d-flex flex-column">
+
+  <!-- MAIN APP AREA -->
+  <div class="container-fluid h-100 p-0 d-flex overflow-hidden">
+    
+    <!-- LEFT SIDEBAR: CHAT LIST -->
+    <div class="col-12 col-md-4 col-lg-3 bg-white border-end d-flex flex-column h-100 sidebar-pane">
+      
+      <!-- Search Bar -->
+      <div class="p-3 border-bottom bg-light">
+        <input type="text" class="form-control rounded-pill bg-white border-0 shadow-sm" placeholder="🔍 Search travelers...">
+      </div>
+
+      <!-- Chat List -->
+      <div class="chat-list flex-grow-1 overflow-auto">
+        @for (chat of chatList(); track chat.id) {
+          <div class="chat-item d-flex align-items-center p-3 border-bottom cursor-pointer"
+               [ngClass]="{'bg-light border-primary border-start border-4': activeChat()?.id === chat.id}"
+               (click)="selectChat(chat)">
+            
+            <img [src]="chat.avatar" class="rounded-circle me-3 border" width="50" height="50" alt="avatar">
+            
+            <div class="flex-grow-1 min-w-0">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <h6 class="mb-0 fw-bold text-truncate">{{ chat.name }}</h6>
+                <small class="text-muted" style="font-size: 0.7rem;">{{ chat.time | date:'shortTime' }}</small>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-0 small text-muted text-truncate">{{ chat.lastMessage }}</p>
+                @if (chat.unread > 0) {
+                  <span class="badge bg-primary rounded-pill">{{ chat.unread }}</span>
+                }
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <div class="text-center p-4 text-muted">
+            <p>No active expeditions yet.</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- RIGHT PANE: ACTIVE CHAT WINDOW -->
+    <div class="col-md-8 col-lg-9 d-none d-md-flex flex-column h-100 bg-image-travel">
+      
+      @if (activeChat()) {
+        <!-- Chat Header -->
+        <div class="bg-white p-3 border-bottom d-flex align-items-center shadow-sm z-1">
+          <img [src]="activeChat().avatar" class="rounded-circle me-3" width="45" height="45">
+          <div>
+            <h5 class="mb-0 fw-bold">{{ activeChat().name }}</h5>
+            <small class="text-success fw-semibold">Online</small>
+          </div>
+        </div>
+
+        <!-- Chat History -->
+        <div class="messages-area flex-grow-1 overflow-auto p-4 d-flex flex-column">
+          @for (msg of messages(); track $index) {
+            <div class="message-bubble p-3 rounded-4 shadow-sm mb-3 max-w-75"
+                 [ngClass]="msg.isMe ? 'bg-primary text-white align-self-end' : 'bg-white text-dark align-self-start'">
+              <p class="mb-1">{{ msg.text }}</p>
+              <small [ngClass]="msg.isMe ? 'text-white-50' : 'text-muted'" style="font-size: 0.65rem;">
+                {{ msg.time | date:'shortTime' }}
+              </small>
+            </div>
+          }
+        </div>
+
+        <!-- Message Input -->
+        <div class="bg-white p-3 border-top">
+          <form class="d-flex align-items-center" (ngSubmit)="sendMessage()">
+            <button type="button" class="btn btn-light rounded-circle me-2">📎</button>
+            <input type="text" class="form-control rounded-pill bg-light border-0 px-4 py-2 me-2" 
+                   placeholder="Type a message..." [(ngModel)]="messageText" name="messageText">
+            <button type="submit" class="btn btn-primary rounded-circle px-3 py-2" [disabled]="!messageText().trim()">
+              ➤
+            </button>
+          </form>
+        </div>
+
+      } @else {
+        <!-- Empty State (No chat selected) -->
+        <div class="m-auto text-center text-muted">
+          <div class="display-1 mb-3">🌍</div>
+          <h3>Sanchari Web</h3>
+          <p>Select a traveler from the left to start planning your next expedition.</p>
+        </div>
+      }
+    </div>
+
+  </div>
+</div>

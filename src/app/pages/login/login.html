@@ -1,0 +1,112 @@
+<div class="login-container d-flex align-items-center justify-content-center min-vh-100 bg-light">
+  <div class="panda-container">
+    
+    
+
+    <svg viewBox="0 0 200 180" width="270" height="270" class="panda-svg">
+      <!-- EARS -->
+      <path d="M45,45 Q25,10 10,40" fill="#2d3436" stroke="#2d3436" stroke-width="5" />
+      <path d="M155,45 Q175,10 190,40" fill="#2d3436" stroke="#2d3436" stroke-width="5" />
+      <circle cx="35" cy="45" r="22" fill="#2d3436"/>
+      <circle cx="165" cy="45" r="22" fill="#2d3436"/>
+
+      <!-- FACE BASE -->
+      <path d="M20,100 Q20,30 100,30 Q180,30 180,100 Q180,160 100,160 Q20,160 20,100" fill="#ffffff" />
+      
+      <!-- EYE PATCHES -->
+      <path d="M50,85 Q45,65 75,65 Q95,65 90,95 Q85,115 65,110 Q50,105 50,85" fill="#2d3436" />
+      <path d="M150,85 Q155,65 125,65 Q105,65 110,95 Q115,115 135,110 Q150,105 150,85" fill="#2d3436" />
+
+      <!-- PUPILS (Now bound to X and Y signals) -->
+      <g class="pupils" [style.transform]="'translate(' + eyeTranslateX() + 'px, ' + eyeTranslateY() + 'px)'">
+        <circle cx="72" cy="85" r="6" fill="white" />
+        
+        <circle cx="128" cy="85" r="6" fill="white" />
+      </g>
+
+      <!-- NOSE -->
+      <path d="M90,118 Q100,108 110,118 L100,123 Z" fill="#2d3436" />
+
+      <!-- MOUTH (LAUGHING vs NEUTRAL) -->
+      @if (activeField() === 'none') {
+        <!-- Laughing Open Mouth -->
+        <path d="M85,125 Q100,150 115,125 Z" fill="#ff7675" />
+      } @else {
+        <!-- Neutral Small Mouth (When looking down or covering eyes) -->
+        <path d="M92,130 Q100,138 108,130" fill="none" stroke="#2d3436" stroke-width="2" stroke-linecap="round" />
+      }
+
+      <!-- BLUSH -->
+      <circle cx="45" cy="120" r="8" fill="#fab1a0" opacity="0.4" />
+      <circle cx="155" cy="120" r="8" fill="#fab1a0" opacity="0.4" />
+
+      <!-- HANDS -->
+      <g class="hands-container">
+        <path d="M30,180 Q40,140 70,140 T100,160" fill="#2d3436" class="hand left-hand" 
+              [class.cover]="activeField() === 'password' && !showPassword()"
+              [class.peek]="showPassword() && activeField() === 'password'"/>
+        
+        <path d="M170,180 Q160,140 130,140 T100,160" fill="#2d3436" class="hand right-hand" 
+              [class.cover]="activeField() === 'password' && !showPassword()"
+              [class.peek]="showPassword() && activeField() === 'password'"/>
+      </g>
+    </svg>
+  </div>
+  <div class="login-card p-4 p-md-5 rounded-4 shadow-lg bg-white position-relative" style="width: 420px; max-width: 90vw;">
+      
+      <!-- THE FORM -->
+      <form (ngSubmit)="handleLogin()">
+        @if (errorMessage()) {
+          <div class="panda-speech-bubble mt-5 shadow-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+      <div class="mb-4 text-center">
+        <h3 class="fw-bold">Welcome Back</h3>
+        <p class="text-muted small">Log in to continue your journey</p>
+      </div>
+
+      <div class="mb-3">
+        <label class="small fw-bold text-muted mb-1">Email</label>
+        <input type="email" class="form-control bg-light" 
+               [(ngModel)]="email" name="email"
+               (focus)="activeField.set('email'); errorMessage.set('')"
+               (blur)="activeField.set('none')" 
+               placeholder="Enter your email">
+      </div>
+
+      <div class="mb-4">
+        <div class="d-flex justify-content-between">
+          <label class="small fw-bold text-muted mb-1">Password</label>
+          <a href="javascript: void(0)" class="small text-decoration-none text-primary"
+          (click)="triggerForgotPassword()">Forgot?</a>
+        </div>
+        
+        <div class="position-relative">
+          <input [type]="showPassword() ? 'text' : 'password'" 
+                 class="form-control bg-light" 
+                 [(ngModel)]="password" name="password"
+                 (focus)="activeField.set('password')"
+                 (blur)="activeField.set('none')"
+                 placeholder="Enter your password">
+          
+          <button type="button" 
+                  class="btn border-0 position-absolute end-0 top-50 translate-middle-y text-muted" 
+                  (mousedown)="$event.preventDefault()" 
+                  (click)="togglePassword()">
+            {{ showPassword() ? '🙈' : '👁️' }}
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm" [disabled]="isLoading()">
+        @if(isLoading()) {
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Logging In...
+        } @else {
+            Log In
+        }
+      </button>
+    </form>
+  </div>
+</div>

@@ -37,7 +37,7 @@
                 <div class="input-group">
                   <span class="input-group-text bg-light text-muted">@</span>
                   <input type="text" class="form-control bg-light" 
-                         name="username" [(ngModel)]="username" placeholder="wanderlust99"  [class.is-invalid]="isUsernameInvalid()">
+                         name="username" [(ngModel)]="username" placeholder="Username"  [class.is-invalid]="isUsernameInvalid()">
                 </div>
                 @if (isUsernameInvalid()) {
                   <div class="text-danger small mt-1">
@@ -50,9 +50,9 @@
               <div class="mb-3">
                 <label class="form-label fw-semibold text-dark small">Email Address *</label>
                 <input type="email" class="form-control bg-light" 
-                       name="email" [(ngModel)]="email" placeholder="name@example.com" [class.is-invalid]="isEmailInvalid()">
+                       name="email" [(ngModel)]="email" placeholder="Email" [class.is-invalid]="isEmailInvalid()">
                 @if (isEmailInvalid()) {
-                  <div class="text-danger small mt-1">Valid email required.</div>
+                  <div class="text-danger small mt-1">Please provide a valid entry.</div>
                 }
               </div>
 
@@ -60,7 +60,7 @@
               <div class="mb-3">
                 <label class="form-label fw-semibold text-dark small">Password *</label>
                 <input type="password" class="form-control bg-light" 
-                       name="password" [(ngModel)]="password" placeholder="••••••••" [class.is-invalid]="isPasswordInvalid()">
+                       name="password" [(ngModel)]="password" placeholder="Password" [class.is-invalid]="isPasswordInvalid()">
                 @if (isPasswordInvalid()) {
                   <div class="text-danger small mt-1">
                     Must be at least 8 chars, including 1 uppercase, 1 lowercase, 1 number, and 1 special character.
@@ -72,7 +72,7 @@
               <div class="mb-4">
                 <label class="form-label fw-semibold text-dark small">Confirm Password *</label>
                 <input type="password" class="form-control bg-light" 
-                       name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="••••••••" [class.is-invalid]="isConfirmPasswordInvalid()">
+                       name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Password" [class.is-invalid]="isConfirmPasswordInvalid()">
                 @if (isConfirmPasswordInvalid()) {
                   <div class="text-danger small mt-1">Passwords do not match.</div>
                 }
@@ -83,7 +83,7 @@
             <input type="tel" class="form-control bg-light" 
                     name="mobile" [(ngModel)]="mobile" placeholder="Mobile Number" [class.is-invalid]="isMobileInvalid()">
             @if (isMobileInvalid()) {
-                <div class="text-danger small mt-1">Please enter a valid 10-15 digit number.</div>
+                <div class="text-danger small mt-1">Please enter a valid 10 digit number.</div>
             }
             </div>
 
@@ -135,7 +135,6 @@
             </select>
             </div>
 
-              <!-- Submit Button -->
               <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm" 
                       [disabled]="!isFormReady()" (click)="registerWanderer()">
                 Start Your Journey
@@ -143,7 +142,6 @@
 
             </form>
             
-            <!-- Link to Login (Where Forgot Password will live) -->
             <div class="text-center mt-4">
               <p class="small text-muted mb-0">Already have an account? 
                 <a routerLink="/login" class="text-primary text-decoration-none fw-bold">Log in</a>

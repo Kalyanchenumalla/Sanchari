@@ -5,4 +5,17 @@
 
 * {
     overflow-x: hidden;
+    scrollbar-width: thin;
+}
+
+.form-control, .form-select {
+    box-shadow: none;
+}
+.form-control.is-invalid {
+    box-shadow: none;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+  overflow: visible !important;
+  margin-bottom: 0.5rem;
 }

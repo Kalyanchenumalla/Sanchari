@@ -1,23 +1,40 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
         <a routerLink="/" class="navbar-brand fw-bold text-primary fs-3">Sanchari</a>
-    </div>
-    <button class="navbar-toggler" type="button" (click)="toggleMenu()">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div [ngbCollapse]="isMenuCollapsed()" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto mb-2 align-items-center">
-            <li class="nav-item">
-                <a href="#" class="nav-link px-3">Explore</a>
-            </li>
-            <li class="nav-item">
-                <button class="btn btn-link nav-link px-3 text-decoration-none">
-                    Log In
-                </button>
-            </li>
-            <li class="nav-item ms-lg-2">
-                <a href="" class="btn btn-primary rounded-pill px-4" routerLink='/register'>Join Sanchari</a>
-            </li>
-        </ul>
+        <button class="navbar-toggler border-0 shadow-none" type="button" (click)="toggleMenu()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div [ngbCollapse]="isMenuCollapsed()" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto mb-2 align-items-center text-center">
+                <li class="nav-item">
+                    <a href="#" class="nav-link px-3">Explore</a>
+                </li>
+                @if(authService.currentUser()) {
+                    <li class="nav-item">
+                    <a routerLink="/chats" class="nav-link px-3">My chats</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-link nav-link px-3 text-decoration-none">Profile settings</a>
+                </li>
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                    <button class="btn btn-outline-danger rounded-pill px-4 w-100" (click)="handleLogout()">
+                        Sign Out
+                    </button>
+                </li>
+            } @else {
+                <li class="nav-item">
+                    <button class="btn btn-link nav-link px-3 text-decoration-none" routerLink="/login">
+                        Log In
+                    </button>
+                </li>
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                    <a class="btn btn-primary rounded-pill px-4 w-100" routerLink='/register'>
+                        Join Sanchari
+                    </a>
+                </li>
+            }
+            
+            </ul>
+        </div>
     </div>
 </nav>
