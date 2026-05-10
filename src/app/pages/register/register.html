@@ -1,0 +1,159 @@
+<main class="bg-light min-vh-100 d-flex align-items-center py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+          <div class="card-body p-5">
+            <div class="text-center mb-4">
+              <h1 class="h3 fw-bold text-primary overflow-hidden">Join Sanchari</h1>
+              <p class="text-muted">Create your traveler profile</p>
+            </div>
+
+            <form (ngSubmit)="registerWanderer()" class="p-1">
+              
+              <div class="row mb-3">
+                <div class="col-md-6 mb-3 mb-md-0">
+                  <label class="form-label fw-semibold text-dark small">First Name *</label>
+                  <input type="text" class="form-control bg-light"
+                         name="firstName" [(ngModel)]="firstName" placeholder="First Name" [class.is-invalid]="isFirstNameInvalid()">
+                  @if (isFirstNameInvalid()) {
+                    <div class="text-danger small mt-1">Please provide a valid entry.</div>
+                  }
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold text-dark small">Last Name *</label>
+                  <input type="text" class="form-control bg-light" 
+                         name="lastName" [(ngModel)]="lastName" placeholder="Last Name" [class.is-invalid]="isLastNameInvalid()">
+                  @if (isLastNameInvalid()) {
+                    <div class="text-danger small mt-1">Please provide a valid entry.</div>
+                  }
+                </div>
+              </div>
+
+              <!-- Username -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold text-dark small">Username *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light text-muted">@</span>
+                  <input type="text" class="form-control bg-light" 
+                         name="username" [(ngModel)]="username" placeholder="wanderlust99"  [class.is-invalid]="isUsernameInvalid()">
+                </div>
+                @if (isUsernameInvalid()) {
+                  <div class="text-danger small mt-1">
+                    3-15 chars. Lowercase, numbers, and underscores only.
+                  </div>
+                }
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold text-dark small">Email Address *</label>
+                <input type="email" class="form-control bg-light" 
+                       name="email" [(ngModel)]="email" placeholder="name@example.com" [class.is-invalid]="isEmailInvalid()">
+                @if (isEmailInvalid()) {
+                  <div class="text-danger small mt-1">Valid email required.</div>
+                }
+              </div>
+
+              <!-- Password -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold text-dark small">Password *</label>
+                <input type="password" class="form-control bg-light" 
+                       name="password" [(ngModel)]="password" placeholder="••••••••" [class.is-invalid]="isPasswordInvalid()">
+                @if (isPasswordInvalid()) {
+                  <div class="text-danger small mt-1">
+                    Must be at least 8 chars, including 1 uppercase, 1 lowercase, 1 number, and 1 special character.
+                  </div>
+                }
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="mb-4">
+                <label class="form-label fw-semibold text-dark small">Confirm Password *</label>
+                <input type="password" class="form-control bg-light" 
+                       name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="••••••••" [class.is-invalid]="isConfirmPasswordInvalid()">
+                @if (isConfirmPasswordInvalid()) {
+                  <div class="text-danger small mt-1">Passwords do not match.</div>
+                }
+              </div>
+              <!-- Mobile Number -->
+            <div class="mb-3">
+            <label class="form-label fw-semibold text-dark small">Mobile Number *</label>
+            <input type="tel" class="form-control bg-light" 
+                    name="mobile" [(ngModel)]="mobile" placeholder="Mobile Number" [class.is-invalid]="isMobileInvalid()">
+            @if (isMobileInvalid()) {
+                <div class="text-danger small mt-1">Please enter a valid 10-15 digit number.</div>
+            }
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="mb-3">
+            <label class="form-label fw-semibold text-dark small">Date of Birth *</label>
+            <div class="row g-2">
+                <!-- Day Dropdown -->
+                <div class="col-4">
+                <select class="form-select bg-light" name="dobDay" [(ngModel)]="dobDay" [class.is-invalid]="isDobInvalid()">
+                    <option value="" disabled selected>Day</option>
+                    @for (day of days; track day) {
+                    <option [value]="day">{{ day }}</option>
+                    }
+                </select>
+                </div>
+                <!-- Month Dropdown -->
+                <div class="col-4">
+                <select class="form-select bg-light" name="dobMonth" [(ngModel)]="dobMonth" [class.is-invalid]="isDobInvalid()">
+                    <option value="" disabled selected>Month</option>
+                    @for (month of months; track month) {
+                    <option [value]="month">{{ month }}</option>
+                    }
+                </select>
+                </div>
+                <!-- Year Dropdown -->
+                <div class="col-4">
+                <select class="form-select bg-light" name="dobYear" [(ngModel)]="dobYear" [class.is-invalid]="isDobInvalid()">
+                    <option value="" disabled selected>Year</option>
+                    @for (year of years; track year) {
+                    <option [value]="year">{{ year }}</option>
+                    }
+                </select>
+                </div>
+            </div>
+            @if (isDobInvalid()) {
+                <div class="text-danger small mt-1">Invalid date combination</div>
+            }
+            </div>
+
+            <!-- Gender -->
+            <div class="mb-4">
+            <label class="form-label fw-semibold text-dark small">Gender *</label>
+            <select class="form-select bg-light" name="gender" [(ngModel)]="gender">
+                <option value="" disabled selected>Select your gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Custom">Custom / Prefer not to say</option>
+            </select>
+            </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm" 
+                      [disabled]="!isFormReady()" (click)="registerWanderer()">
+                Start Your Journey
+              </button>
+
+            </form>
+            
+            <!-- Link to Login (Where Forgot Password will live) -->
+            <div class="text-center mt-4">
+              <p class="small text-muted mb-0">Already have an account? 
+                <a routerLink="/login" class="text-primary text-decoration-none fw-bold">Log in</a>
+              </p>
+            </div>
+            
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>

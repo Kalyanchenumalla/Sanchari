@@ -1,0 +1,48 @@
+<main>
+    <section class="hero-section py-5 bg-light">
+        <div class="row align-items-center gy-5">
+            <div class="col-lg-6 text-center text-lg-start">
+                <h1 class="display-4 fw-bold mb-3 text-dark">
+                    Connect with <span class="text-primary">Sancharis</span> Worldwide.
+                </h1>
+                <p class="lead text-muted mb-4">
+                    The ultimate messaging app for travelers. Start real-time chats, plan your next journey, and instantly connect with people who share your passion for exploring.
+                </p>
+                <div class="d-grid d-sm-flex justify-content-sm-center justify-content-lg-start gap-3">
+                    <button class="btn btn-primary btn-lg px-5 rounded-pill shadow">Start Texting</button>
+                    <button class="btn btn-outline-secondary btn-lg px-5 rounded-pill">How it works</button>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+            <div class="position-relative d-inline-block">
+                <img src="https://via.placeholder.com/350x700" alt="Sanchari App Preview" 
+                    class="img-fluid rounded-4 shadow-lg border" style="max-height: 500px;">
+                <div class="position-absolute top-50 start-100 translate-middle d-none d-xl-block">
+                <span class="badge bg-white text-dark shadow-sm p-3 rounded-3 border">
+                    📍 Warangal, IN
+                </span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    @defer (on viewport) {
+    <section class="py-5">
+      <div class="container">
+        <div class="row g-4 text-center">
+          @for (feature of features(); track feature.title) {
+            <div class="col-md-4">
+              <div class="card h-100 border-0 p-4">
+                <div class="fs-1 text-primary mb-3">{{ feature.icon }}</div>
+                <h3 class="h5 fw-bold">{{ feature.title }}</h3>
+                <p class="text-muted">{{ feature.description }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+    } @placeholder {
+        <div class="container py-5 text-center text-muted">Loading features...</div>
+    }
+</main>
